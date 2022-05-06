@@ -1,0 +1,22 @@
+{
+  "name": "@glasssh/frontshell",
+  "version": "0.0.1",
+  "description": "glass.sh frontend",
+  "main": "index.js",
+  "scripts": {
+    "bundle": "./bundle.sh"
+  },
+  "author": "glass.sh",
+  "license": "ISC",
+  "dependencies": {
+    "@glasssh/v86": "^0.1.0",
+    "xterm": "^4.18.0",
+    "xterm-addon-fit": "^0.5.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.17.10",
+    "@babel/preset-typescript": "^7.16.7",
+    "typescript": "^4.1.6"
+  }
+}

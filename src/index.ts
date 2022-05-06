@@ -1,0 +1,91 @@
+import "@glasssh/v86"
+import "xterm"
+import "xterm-addon-fit";
+
+const fit = new FitAddon.FitAddon();
+const theme = {
+  background: '#252525',
+  cursor: '#A0A0A0',
+  foreground: '#A0A0A0',
+  black: '#252525',
+  blue: '#268BD2',
+  brightBlack: '#505354',
+  brightBlue: '#62ADE3',
+  brightCyan: '#94D8E5',
+  brightGreen: '#B7EB46',
+  brightMagenta: '#BFA0FE',
+  brightRed: '#FF5995',
+  brightWhite: '#F8F8F2',
+  brightYellow: '#FEED6C',
+  cyan: '#56C2D6',
+  green: '#82B414 ',
+  magenta: '#8C54FE',
+  red: '#F92672',
+  white: '#CCCCC6',
+  yellow: '#FD971F'
+}
+
+const terminal = new Terminal({ theme });
+terminal.loadAddon(fit);
+terminal.open(document.getElementById('terminal')!)
+fit.fit();
+
+window.onresize = (event: UIEvent) => fit.fit();
+
+const params = (new URL(window.location.toString())).searchParams;
+const networkRelayURLParam = params.get("network_relay_url");
+const networkRelayURL = networkRelayURLParam ? decodeURIComponent(networkRelayURLParam) : undefined;
+
+const emulator = new V86Starter({
+  wasm_path: "/v86.wasm",
+  memory_size: 2048 * 1024 * 1024,
+  vga_memory_size: 8 * 1024 * 1024,
+  bios: {
+    url: "/seabios.bin",
+  },
+  vga_bios: {
+    url: "/vgabios.bin",
+  },
+
+  filesystem: {
+    baseurl: "/arch_root/arch/",
+    basefs: "/arch_root/fs.json",
+  },
+
+  initial_state: {
+    url: "/state/arch0.bin",
+  },
+  
+  acpi: false,
+  autostart: true,
+  disable_keyboard: true,
+  disable_mouse: true,
+  disable_speaker: true,
+
+  cmdline: [
+    "rw",
+    "root=host9p rootfstype=9p rootflags=trans=virtio,cache=loose",
+    // "init=/usr/lib/systemd/systemd",
+  ].join(" "),
+
+  network_relay_url: `ws://${networkRelayURL}`,
+});
+
+const sendString = (data: string) => {
+  for(let i = 0; i < data.length; i++){
+    emulator.bus.send("serial0-input", data.charCodeAt(i));
+  }
+}
+
+const sendCode = (codes: number[]) => codes.forEach(code => emulator.bus.send("serial0-input", code));
+
+const initialSequence = () => {
+  terminal.clear();
+  terminal.write("Please authenicate. ")
+  sendCode([13]);
+}
+
+terminal.writeln("Loading... ");
+terminal.onData(sendString);
+emulator.add_listener("emulator-ready", () => window.setTimeout(() => initialSequence(), 100));
+emulator.add_listener("serial0-output-char", (chr: string) => terminal.write(chr));

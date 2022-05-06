@@ -1,0 +1,41 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>glass.sh</title>
+  <meta name="description" content="glass.sh">
+  <meta name="author" content="glass.sh">
+
+  <meta property="og:title" content="glass.sh">
+  <meta property="og:type" content="glass.sh">
+  <meta property="og:url" content="https://glass.sh/">
+  <meta property="og:description" content="glass.sh">
+  <!-- <meta property="og:image" content="image.png"> -->
+
+  <!-- <link rel="icon" href="/favicon.ico">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png"> -->
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="xterm.css">
+
+</head>
+
+<body>
+  <div id="terminal"></div>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "@glasssh/v86": "/libv86.js",
+        "xterm": "./xterm.js",
+        "xterm-addon-fit": "./xterm-addon-fit.js"
+      }
+    }
+  </script>
+  <script type="module" src="/index.js"></script>
+</body>
+</html>

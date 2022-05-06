@@ -1,2 +1,2 @@
 # frontshell
-glass.sh frontend
+This is an early-stage experiment on top of v86. 

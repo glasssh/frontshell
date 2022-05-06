@@ -1,0 +1,5 @@
+node_modules/
+arch_root/
+dist/
+extract/
+.vscode
