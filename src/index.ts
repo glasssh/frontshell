@@ -39,7 +39,7 @@ let relayDidBootstrap = false;
 
 const emulator = new V86Starter({
   wasm_path: "/v86.wasm",
-  memory_size: 2048 * 1024 * 1024,
+  memory_size: 1024 * 1024 * 1024,
   vga_memory_size: 8 * 1024 * 1024,
   bios: {
     url: "/seabios.bin",
@@ -54,8 +54,11 @@ const emulator = new V86Starter({
   },
 
   initial_state: {
-    url: "/state/arch0.bin",
+    url: "/state/arch-base.bin.zst",
   },
+  
+  // screen_container: document.getElementById('screen_container'),
+  // bzimage_initrd_from_filesystem: true,
   
   acpi: false,
   autostart: true,
