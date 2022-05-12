@@ -1,5 +1,6 @@
 node_modules/
 arch_root/
+__arch_root/
 dist/
 env/
 .vscode
