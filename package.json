@@ -4,12 +4,17 @@
   "description": "glass.sh frontend",
   "main": "index.js",
   "scripts": {
-    "bundle": "./bundle.sh"
+    "bundle": "./bundle.sh",
+    "build": "webpack --mode=production --node-env=production && cp ./index.html dist/",
+    "build:dev": "webpack --mode=development && cp ./index.html dist/",
+    "build:prod": "webpack --mode=production --node-env=production",
+    "watch": "webpack --watch",
+    "serve": "webpack serve"
   },
   "author": "glass.sh",
   "license": "ISC",
   "dependencies": {
-    "@glasssh/v86": "^0.1.0",
+    "@glasssh/v86": "^0.0.1",
     "xterm": "^4.18.0",
     "xterm-addon-fit": "^0.5.0"
   },
@@ -17,6 +22,15 @@
     "@babel/cli": "^7.17.10",
     "@babel/core": "^7.17.10",
     "@babel/preset-typescript": "^7.16.7",
-    "typescript": "^4.1.6"
+
+    "@webpack-cli/generators": "^2.4.2",
+    "babel-loader": "^8.2.5",
+    "css-loader": "^6.7.1",
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.3.0",
+    "typescript": "^4.6.4",
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.9.0"
   }
 }
