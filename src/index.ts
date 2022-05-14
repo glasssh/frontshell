@@ -77,11 +77,11 @@ const emulator = new V86Starter({
 
 const sendString = (data: string) => {
   for(let i = 0; i < data.length; i++){
-    emulator.bus.send("serial0-input", data.charCodeAt(i));
+    emulator["bus"].send("serial0-input", data.charCodeAt(i));
   }
 }
 
-const sendCode = (codes: number[]) => codes.forEach(code => emulator.bus.send("serial0-input", code));
+const sendCode = (codes: number[]) => codes.forEach(code => emulator["bus"].send("serial0-input", code));
 
 const initialSequence = () => {
   terminal.clear();
